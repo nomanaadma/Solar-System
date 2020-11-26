@@ -1,6 +1,6 @@
 import "./App.css";
-import { useEffect, useRef } from 'react';
-import useWebAnimations, { bounce } from "@wellyshen/use-web-animations";
+import { useEffect, useRef, useState } from 'react';
+import { Animated } from 'react-web-animation';
 
 function App() {
 	
@@ -272,12 +272,11 @@ function App() {
 	};
 
 	const body = useRef(null);
-	const orbits = useRef({});
+	const [activePlanet, setActivePlanet] = useState('earth');
 
 	useEffect(() => {
 		
 		setTimeout(() => {
-			
 			
 			body.current.classList.remove('view-2D');
 			body.current.classList.remove('opening');
@@ -288,124 +287,133 @@ function App() {
 
 	}, []);
 
+	function getTiming(key) {
+		return {duration: options[key].duration, iterations: options.iterations };
+	}
 
-	// const orbitsKeys = Object.keys(orbits.current);
+	function getkeyframes(key) {
+		return key === 'moon' ? options[key].keyframes : options.orbit.keyframes;
+	}
 
-	// for (let key of orbitsKeys) {	
+	function getshadowkeyframes(key) {
+		return options[key].shadow;
+	}
 
-		const key = 'earth';
+	// document.querySelectorAll('.orbit').forEach((orbit) => {
+			
+	// 	let keyFrame = orbit.id == 'moon' ? options[orbit.id].keyframes : options.orbit.keyframes,
+	// 		orbitOptions = { iterations: options.iterations, duration: options[orbit.id].duration, transformStyle: 'preserve-3d' };
+			
+	// 	orbit.animate(keyFrame, orbitOptions);
+	// 	orbit.querySelector('.pos').animate(options.invert.keyframes, orbitOptions);
 		
-		// const ref = orbits.current[key];
+	// 	if(orbit.id != 'moon' )
+	// 		orbit.querySelector('.planet').animate(options[orbit.id].shadow, orbitOptions);
 
-		const keyframes = key === 'moon' ? options[key].keyframes : options.orbit.keyframes,
-			timing = { iterations: options.iterations, duration: options[key].duration };
-
-		const { ref } = useWebAnimations({ keyframes, timing });
-	// }
-
+	// });
 
 	return (
 		<div className="opening hide-UI view-2D zoom-large data-close controls-close" ref={body}>
 			<div id="data">
-				<a className="sun" title="sun" href="#sunspeed">
+				<a onClick={ () => setActivePlanet('sun')} className={'sun '+(activePlanet === 'sun' ? 'active' : '')} title="sun" href="#sunspeed">
 					Sun
 				</a>
-				<a className="mercury" title="mercury" href="#mercuryspeed">
+				<a onClick={ () => setActivePlanet('mercury')} className={'mercury '+(activePlanet === 'mercury' ? 'active' : '')} title="mercury" href="#mercuryspeed">
 					Mercury
 				</a>
-				<a className="venus" title="venus" href="#venusspeed">
+				<a onClick={ () => setActivePlanet('venus')} className={'venus '+(activePlanet === 'venus' ? 'active' : '')} title="venus" href="#venusspeed">
 					Venus
 				</a>
-				<a className="earth active" title="earth" href="#earthspeed">
+				<a onClick={ () => setActivePlanet('earth')} className={'earth '+(activePlanet === 'earth' ? 'active' : '')} title="earth" href="#earthspeed">
 					Earth
 				</a>
-				<a className="mars" title="mars" href="#marsspeed">
+				<a onClick={ () => setActivePlanet('mars')} className={'mars '+(activePlanet === 'mars' ? 'active' : '')} title="mars" href="#marsspeed">
 					Mars
 				</a>
-				<a className="jupiter" title="jupiter" href="#jupiterspeed">
+				<a onClick={ () => setActivePlanet('jupiter')} className={'jupiter '+(activePlanet === 'jupiter' ? 'active' : '')} title="jupiter" href="#jupiterspeed">
 					Jupiter
 				</a>
-				<a className="saturn" title="saturn" href="#saturnspeed">
+				<a onClick={ () => setActivePlanet('saturn')} className={'saturn '+(activePlanet === 'saturn' ? 'active' : '')} title="saturn" href="#saturnspeed">
 					Saturn
 				</a>
-				<a className="uranus" title="uranus" href="#uranusspeed">
+				<a onClick={ () => setActivePlanet('uranus')} className={'uranus '+(activePlanet === 'uranus' ? 'active' : '')} title="uranus" href="#uranusspeed">
 					Uranus
 				</a>
-				<a className="neptune" title="neptune" href="#neptunespeed">
+				<a onClick={ () => setActivePlanet('neptune')} className={'neptune '+(activePlanet === 'neptune' ? 'active' : '')} title="neptune" href="#neptunespeed">
 					Neptune
 				</a>
 			</div>
 			<div id="universe" className="scale-stretched">
 				<div id="galaxy">
-					<div id="solar-system" className="earth">
-						<div id="mercury" className="orbit">
-							<div className="pos">
-								<div className="planet">
+					<div id="solar-system" className={activePlanet}>
+						<Animated.div id="mercury" className="orbit" keyframes={getkeyframes('mercury')} timing={getTiming('mercury')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('mercury')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('mercury')} timing={getTiming('mercury')}>
 									<dl className="infos">
 										<dt>Mercury</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="venus" className="orbit" ref={el => orbits.current['venus'] = el} >
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="venus" className="orbit" keyframes={getkeyframes('venus')} timing={getTiming('venus')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('venus')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('venus')} timing={getTiming('venus')}>
 									<dl className="infos">
 										<dt>Venus</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="earth" className="orbit" ref={ref} >
-							<div className="pos">
-								<div id="moon" className="orbit" ref={el => orbits.current['moon'] = el} >
-									<div className="pos">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="earth" className="orbit" keyframes={getkeyframes('earth')} timing={getTiming('earth')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('earth')}>
+								<Animated.div id="moon" className="orbit" keyframes={getkeyframes('moon')} timing={getTiming('moon')}>
+									<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('moon')}>
 										<div className="moon"></div>
-									</div>
-								</div>
-								<div className="planet">
+									</Animated.div>
+								</Animated.div>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('earth')} timing={getTiming('earth')}>
 									<dl className="infos">
 										<dt>Earth</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="mars" className="orbit" ref={el => orbits.current['mars'] = el} >
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="mars" className="orbit" keyframes={getkeyframes('mars')} timing={getTiming('mars')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('mars')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('mars')} timing={getTiming('mars')}>
 									<dl className="infos">
 										<dt>Mars</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="jupiter" className="orbit" ref={el => orbits.current['jupiter'] = el}>
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="jupiter" className="orbit" keyframes={getkeyframes('jupiter')} timing={getTiming('jupiter')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('jupiter')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('jupiter')} timing={getTiming('jupiter')}>
 									<dl className="infos">
 										<dt>Jupiter</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="saturn" className="orbit" ref={el => orbits.current['saturn'] = el}>
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="saturn" className="orbit" keyframes={getkeyframes('saturn')} timing={getTiming('saturn')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('saturn')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('saturn')} timing={getTiming('saturn')}>
 									<div className="ring"></div>
 									<dl className="infos">
 										<dt>Saturn</dt>
@@ -413,33 +421,33 @@ function App() {
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="uranus" className="orbit" ref={el => orbits.current['uranus'] = el}>
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="uranus" className="orbit" keyframes={getkeyframes('uranus')} timing={getTiming('uranus')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('uranus')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('uranus')} timing={getTiming('uranus')}>
 									<dl className="infos">
 										<dt>Uranus</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
-						<div id="neptune" className="orbit" ref={el => orbits.current['neptune'] = el}>
-							<div className="pos">
-								<div className="planet">
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
+						<Animated.div id="neptune" className="orbit" keyframes={getkeyframes('neptune')} timing={getTiming('neptune')}>
+							<Animated.div className="pos" keyframes={options.invert.keyframes} timing={getTiming('neptune')}>
+								<Animated.div className="planet" keyframes={getshadowkeyframes('neptune')} timing={getTiming('neptune')}>
 									<dl className="infos">
 										<dt>Neptune</dt>
 										<dd>
 											<span></span>
 										</dd>
 									</dl>
-								</div>
-							</div>
-						</div>
+								</Animated.div>
+							</Animated.div>
+						</Animated.div>
 						<div id="sun" >
 							<dl className="infos">
 								<dt>Sun</dt>
