@@ -315,31 +315,31 @@ function App() {
 	return (
 		<div className="opening hide-UI view-2D zoom-large data-close controls-close" ref={body}>
 			<div id="data">
-				<a onClick={ () => setActivePlanet('sun')} className={'sun '+(activePlanet === 'sun' ? 'active' : '')} title="sun" href="#sunspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('sun'); }} className={'sun '+(activePlanet === 'sun' ? 'active' : '')} title="sun" href="#sun">
 					Sun
 				</a>
-				<a onClick={ () => setActivePlanet('mercury')} className={'mercury '+(activePlanet === 'mercury' ? 'active' : '')} title="mercury" href="#mercuryspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('mercury'); }} className={'mercury '+(activePlanet === 'mercury' ? 'active' : '')} title="mercury" href="#mercury">
 					Mercury
 				</a>
-				<a onClick={ () => setActivePlanet('venus')} className={'venus '+(activePlanet === 'venus' ? 'active' : '')} title="venus" href="#venusspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('venus'); }} className={'venus '+(activePlanet === 'venus' ? 'active' : '')} title="venus" href="#venus">
 					Venus
 				</a>
-				<a onClick={ () => setActivePlanet('earth')} className={'earth '+(activePlanet === 'earth' ? 'active' : '')} title="earth" href="#earthspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('earth'); }} className={'earth '+(activePlanet === 'earth' ? 'active' : '')} title="earth" href="#earth">
 					Earth
 				</a>
-				<a onClick={ () => setActivePlanet('mars')} className={'mars '+(activePlanet === 'mars' ? 'active' : '')} title="mars" href="#marsspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('mars'); }} className={'mars '+(activePlanet === 'mars' ? 'active' : '')} title="mars" href="#mars">
 					Mars
 				</a>
-				<a onClick={ () => setActivePlanet('jupiter')} className={'jupiter '+(activePlanet === 'jupiter' ? 'active' : '')} title="jupiter" href="#jupiterspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('jupiter'); }} className={'jupiter '+(activePlanet === 'jupiter' ? 'active' : '')} title="jupiter" href="#jupiter">
 					Jupiter
 				</a>
-				<a onClick={ () => setActivePlanet('saturn')} className={'saturn '+(activePlanet === 'saturn' ? 'active' : '')} title="saturn" href="#saturnspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('saturn'); }} className={'saturn '+(activePlanet === 'saturn' ? 'active' : '')} title="saturn" href="#saturn">
 					Saturn
 				</a>
-				<a onClick={ () => setActivePlanet('uranus')} className={'uranus '+(activePlanet === 'uranus' ? 'active' : '')} title="uranus" href="#uranusspeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('uranus'); }} className={'uranus '+(activePlanet === 'uranus' ? 'active' : '')} title="uranus" href="#uranus">
 					Uranus
 				</a>
-				<a onClick={ () => setActivePlanet('neptune')} className={'neptune '+(activePlanet === 'neptune' ? 'active' : '')} title="neptune" href="#neptunespeed">
+				<a onClick={ e => { e.preventDefault(); setActivePlanet('neptune'); }} className={'neptune '+(activePlanet === 'neptune' ? 'active' : '')} title="neptune" href="#neptune">
 					Neptune
 				</a>
 			</div>

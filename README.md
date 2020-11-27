@@ -1,4 +1,14 @@
-# Getting Started with Create React App
+# Solar System
+
+Project #4b for [Panacloud Bootcamp 2020](https://panacloud.github.io/bootcamp-2020/). Develop Tiny Short Animation with React Hooks
+
+![demo](https://raw.githubusercontent.com/nomanaadma/solar-system/master/public/screenshot.png)
+
+Built with:
+
+- [React](https://github.com/facebook/react/)
+- [WAAPI](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+- [React-Web-Animation](https://www.npmjs.com/package/react-web-animation)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
